@@ -1,8 +1,8 @@
 import  express  from "express";
-import { helmetMiddleware } from "./middlewares/helmet.middleware.js";
-import { corsMiddleware } from "./middlewares/cors.middleware.js";
-import { customSecurityHeaders } from "./middlewares/security-headers.middleware.js";
-import { errorMiddleware } from "./middlewares/error.middleware.js";
+import  { helmetMiddleware }  from "./middlewares/helmet.middleware";
+import  { corsMiddleware }  from "./middlewares/cors.middleware";
+import  { customSecurityHeaders }  from "./middlewares/security-headers.middleware";
+import  { errorMiddleware }  from "./middlewares/error.middleware";
 
 const app = express();
 app.use(express.json());
