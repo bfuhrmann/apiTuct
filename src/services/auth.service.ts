@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { prisma } from "../prisma/client";
+import { prisma } from "../config/prisma";
 import { generateToken } from "../utils/jwt";
 
 interface RegisterDTO {

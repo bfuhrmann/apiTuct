@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,25 +7,57 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-
-
 model Users {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  roleId    Int
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+  roleId   Int
 
-  role      Role     @relation(fields: [roleId], references: [id])
+  role      Role       @relation(fields: [roleId], references: [id])
+  auditLogs AuditLog[] // 👈 RELAÇÃO REVERSA
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Role {
-  id    Int     @id @default(autoincrement())
-  name  String  @unique
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   users Users[]
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  action    String
+  entity    String
+  entityId  Int?
+  oldData   Json?
+  newData   Json?
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  user     Users?  @relation(fields: [userId], references: [id])
+  Agenda   Agenda? @relation(fields: [agendaId], references: [id])
+  agendaId Int?
+}
+
+model Agenda {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  imageGira   String
+  dateGira    DateTime
+  isPublic    Boolean  @default(false)
+  confirmGira Boolean  @default(true)
+
+  auditLogs AuditLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

@@ -5,7 +5,7 @@ export function customSecurityHeaders(
     res: Response,
     next: NextFunction
 ){
-    res.setHeader('X-Powered-By', 'Prime-API');
+    res.setHeader('X-Powered-By', 'TUCT-API');
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('X-Frame-Options', 'DENY');
     res.setHeader('Referrer-Policy', 'no-referrer');
