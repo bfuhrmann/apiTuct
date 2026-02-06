@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.app = void 0;
+const express_1 = __importDefault(require("express"));
+const helmet_middleware_1 = require("./middlewares/helmet.middleware");
+const cors_middleware_1 = require("./middlewares/cors.middleware");
+const security_headers_middleware_1 = require("./middlewares/security-headers.middleware");
+const swagger_middleware_1 = require("./middlewares/swagger.middleware");
+const auth_routes_1 = require("./routes/auth.routes");
+const error_middleware_1 = require("./middlewares/error.middleware");
+const app = (0, express_1.default)();
+exports.app = app;
+app.use(express_1.default.json());
+app.use(helmet_middleware_1.helmetMiddleware);
+app.use(cors_middleware_1.corsMiddleware);
+app.use(security_headers_middleware_1.customSecurityHeaders);
+app.use("/auth", auth_routes_1.authRoutes);
+(0, swagger_middleware_1.setupSwagger)(app);
+app.use(error_middleware_1.errorMiddleware);

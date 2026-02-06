@@ -19,6 +19,8 @@ model Users {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+   @@map("users")
 }
 
 model Role {
@@ -28,6 +30,8 @@ model Role {
   updatedAt DateTime @updatedAt
 
   users Users[]
+
+  @@map("roles")
 }
 
 model AuditLog {
@@ -45,6 +49,8 @@ model AuditLog {
   user     Users?  @relation(fields: [userId], references: [id])
   Agenda   Agenda? @relation(fields: [agendaId], references: [id])
   agendaId Int?
+
+  @@map("audit_logs")
 }
 
 model Agenda {
@@ -60,4 +66,6 @@ model Agenda {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("agenda")
 }
